@@ -366,14 +366,6 @@ public class IndexDaoImpl1 implements IndexDao {
 
 
 
-
-
-
-
-
-
-
-
 **Spring懒加载**
 
 官网：https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-factory-lazy-init
@@ -472,7 +464,20 @@ https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/
 
 
 
-Profile
+**Profile**
+
+项目中的多个环境。
+
+可以设置某一个配置文件生效，也可以使某一个bean生效
+
+`@Profile("dev")`
+
+```java
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        context.getEnvironment().setActiveProfiles("dev");
+        context.register(AppConfig.class);
+        context.refresh();
+```
 
 
 
@@ -553,4 +558,10 @@ notes：
 ​	为什么mybatis提供了SqlSessionFactory，还要提供一个新的jar ----  mybatis-spring呢？  因为如果我们之间使用SqlSessionFactory需要在spring配置各种信息，还需要手动开启会话等等，提供一个springbean 后，我们只需要提供一个数据源即可。
 
 
+
+spring中的循环引用，是基于一种缓存的思想解决的，
+
+prototype 作用域是不能循环引用的，因为prototype的类是在getBean的时候在初始化创建的。
+
+循环引用的gc算法？
 
